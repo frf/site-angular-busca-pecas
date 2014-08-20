@@ -1,18 +1,15 @@
 <div content-for="title">
-  <span>Lançamentos</span>
+  <span>Resultado da Busca</span>
 </div>
 
-<input type="search" class="form-control app-search" placeholder="Procurar.." />
-
+<input type="text" class="form-control app-search" placeholder="Procurar.."  ng-change="change()" ng-model="buscaOnline" />
+ <tt>counter = {{counter}}</tt><br/>
 <div class="scrollable" >
   <div class="scrollable-content">
     <div class="list-group">
         {{aListCat}}
-      <a ng-repeat="item in aListLancamento" href="#add-lanc/{{item.objectId}}" class="list-group-item">
-        {{ item.nome }} | 
-        {{ item.pgto }} | 
-        {{ item.categoriaNome}} | 
-        {{ item.data }} | 
+      <a ng-repeat="item in aListLancamento" href="#add-lanc/{{item.IdProd}}" class="list-group-item">
+        {{ item.Nome }}
         <i class="fa fa-edit pull-right"></i>
       </a>
     </div>

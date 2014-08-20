@@ -1,34 +1,6 @@
 'use strict';
 
 var meusControllers = angular.module('MeusControllers', []);
-var aCategoria = [];
-var aPgto = [];
-
-var getObj = function(id,aObj){
-    console.log(id + " - " + aObj);
-                var log = [];
-                angular.forEach(aObj, function(value, key) {
-                    
-                    if(id == value.objectId){
-                        value.keyId = key;
-                        this.push(value);
-                    }
-                },log);                
-                return log;
-            }
-            
-var getAllLancamentos = function(aObj){
-    var log = [];
-
-    angular.forEach(aObj.results, function(value, key) {
-        console.log(value.categoria);
-        console.log(getObj(value.categoria,aCategoria));
-            value.keyId = key;
-            value.categoriaNome = getObj(value.categoria,aCategoria)[0].nome;
-            this.push(value);
-    },log);                
-    return log;
-}
 
 /* Controllers */
 meusControllers.controller('MainController', function($rootScope, $scope,CategoriaService,PgtoService) {
@@ -41,91 +13,26 @@ meusControllers.controller('MainController', function($rootScope, $scope,Categor
         $rootScope.loading = false;
     });
     
-    CategoriaService.getAll(function(data) {
-        aCategoria = data.results;
-    });
-    PgtoService.getAll(function(data) {
-        aPgto = data.results;
-    });
 });
-
-meusControllers.controller('PgtoController', function($scope) {
-    $scope.aListPgto = aPgto;
-});
-
-meusControllers.controller('CategoriaController', function($scope) {
-    $scope.aListCat = aCategoria;
-});
-
-meusControllers.controller('EditPgtoController', function($scope, $routeParams, $location, PgtoService) {
-    
-    $scope.id = $routeParams.id;
-    $scope.master = {};
-    
-    if($routeParams.id != null){
-        var Pgto = getObj($routeParams.id,aPgto);
-        $scope.master = {id:$routeParams.id,nome:Pgto[0].nome,keyId:Pgto[0].keyId};        
-    }
-        
-    $scope.update = function(user) {
-        var Pgto = {
-            objectId:'',
-            nome:""
-        }
-        
-        Pgto.objectId = $scope.user.id;
-        Pgto.nome = $scope.user.nome;
-        
-        if($scope.master.keyId == null){
-            aPgto.push(Pgto);
-        }else{
-            aPgto[$scope.master.keyId] = Pgto;
-        }
-        
-        PgtoService.save(Pgto, function(data) {
-           $location.path("/pgto");
-        });
-
-        $scope.master = angular.copy(user);
-    };
-
-    $scope.reset = function() {
-        $scope.user = angular.copy($scope.master);
-    };
-
-    $scope.isUnchanged = function(user) {
-        return angular.equals(user, $scope.master);
-    };
-
-    $scope.reset();
-    
-});
-
-meusControllers.controller('EditCategoriaController', function($scope, $routeParams, CategoriaService) {
-
-    $scope.master = {};
-
-    CategoriaService.getCategoria($routeParams.id, function(data) {
-        if ($routeParams.id != null) {
-            $scope.master = {id: $routeParams.id, nome: data.nome};
-        }
-    });
-
-    $scope.update = function(user) {
-
-        $scope.master = angular.copy(user);
-    };
-
-    $scope.reset = function() {
-        $scope.user = angular.copy($scope.master);
-    };
-
-    $scope.isUnchanged = function(user) {
-        return angular.equals(user, $scope.master);
-    };
-
-    $scope.reset();
-
+meusControllers.controller('lancamentoController',
+        function($scope, $location, $routeParams) {
+            var oProduto = [{
+                'IdProd':'Teste 1',
+                'Nome':'Nome 1'
+            }];
+            
+            $scope.counter = 0;
+            var aList = [];
+            
+            $scope.change = function() {
+                var counter = $scope.counter++;
+                aList.push(oProduto = {
+                                'IdProd':'Teste ' + counter,
+                                'Nome':'Nome ' + counter
+                            });
+            };
+            
+            $scope.aListLancamento = aList;
 });
 meusControllers.controller('addLancController', function($scope, $location, $routeParams, CategoriaService, PgtoService, LancamentoService) {
 
@@ -178,12 +85,7 @@ meusControllers.controller('addLancController', function($scope, $location, $rou
     $scope.reset();
 
 });
-meusControllers.controller('lancamentoController',
-        function($scope, $location, $routeParams, LancamentoService) {
-            LancamentoService.getAll(function(data) {
-                $scope.aListLancamento = getAllLancamentos(data);
-            });
-        });
+
  
 /*
 // Declare the types.
