@@ -3,13 +3,13 @@
 </div>
 
 <input type="text" class="form-control app-search" placeholder="Procurar.."  ng-change="change()" ng-model="buscaOnline" />
- <tt>counter = {{counter}}</tt><br/>
+ <tt>Quantidade encontrada: {{counter}}</tt><br/>
 <div class="scrollable" >
   <div class="scrollable-content">
     <div class="list-group">
-        {{aList}}
-      <a ng-repeat="item in aList" href="#add-lanc/{{item.IdProd}}" class="list-group-item">
-        {{ item.Nome }}
+        {{status}}
+      <a ng-repeat="item in aList" href="#viewProd/{{item.IdProd}}" class="list-group-item">
+        {{ item.Nome }} - {{ item.Fabricante }}
         <i class="fa fa-edit pull-right"></i>
       </a>
     </div>

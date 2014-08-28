@@ -2,6 +2,7 @@
 
 var meusControllers = angular.module('MeusControllers', []);
 
+
 /* Controllers */
 meusControllers.controller('MainController', function($rootScope, $scope) {
 
@@ -14,39 +15,25 @@ meusControllers.controller('MainController', function($rootScope, $scope) {
     });
     
 });
-meusControllers.controller('lancamentoController',
-        function($scope, $location, $routeParams,$http) {
-            var aList = [];
+meusControllers.controller('lancamentoController',function($scope, $location, $routeParams, dataService) {
             
+            var oData = dataService.getCustomers();
             
-            $http.get('http://www.pecas.guru/api/produto?busca=oleo').
-                success(function(data, status, headers, config) {
-                    //$scope.posts = data;
-                    console.log(data);
-                    console.log(status);
-                    console.log(headers);
-                    console.log(config);
-              
-            }).
-            error(function(data, status, headers, config) {
-              // log error
-                
-                    console.log(status);
-                
+            oData.success(function (data) {
+                $scope.aList = data;
+                $scope.counter = data.length;
+            }).error(function (error) {
+                $scope.status = 'Unable to load customer data: ' + error.message;
             });
             
-          
             $scope.counter = 0;
-            $scope.aList = aList;
             
             $scope.change = function() {
-                var counter = $scope.counter++;
-             
+                //var counter = $scope.counter++;             
             };
             
-            $scope.aListLancamento = aList;
 });
-meusControllers.controller('addLancController', function($scope, $location, $routeParams) {
+meusControllers.controller('viewProd', function($scope, $location, $routeParams) {
 
     $scope.lancamento = {};
     $scope.lancamentos = [];
