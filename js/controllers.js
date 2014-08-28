@@ -18,16 +18,17 @@ meusControllers.controller('MainController', function($rootScope, $scope) {
 meusControllers.controller('lancamentoController',function($scope, $location, $routeParams, dataService) {
             
             var oData = dataService.getCustomers();
+            var data = [];
+            
+            $scope.counter = 0;
             
             oData.success(function (data) {
-                console.log(data);
                 $scope.aList = data;
                 $scope.counter = data.length;
             }).error(function (error) {
                 $scope.status = 'Unable to load customer data: ' + error.message;
+                $scope.aList = data;
             });
-            
-            $scope.counter = 0;
             
             $scope.change = function() {
                 //var counter = $scope.counter++;             
