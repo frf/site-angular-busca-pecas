@@ -20,6 +20,7 @@ meusControllers.controller('lancamentoController',function($scope, $location, $r
             var oData = dataService.getCustomers();
             
             oData.success(function (data) {
+                console.log(data);
                 $scope.aList = data;
                 $scope.counter = data.length;
             }).error(function (error) {
