@@ -10,7 +10,6 @@ var app = angular.module('MobileAngularUiExamples',
 
 app.config(function($routeProvider) {
     $routeProvider.when('/', {templateUrl: "home.html"});
-    $routeProvider.when('/add-lanc/:id', {templateUrl: "add-lancamento.html"});
+    $routeProvider.when('/viewProd/:id', {templateUrl: "view.html",controller:'lancamentoController'});
     $routeProvider.when('/lancamento', {templateUrl: "listar-lanc.html",controller:'lancamentoController'});
 });
-

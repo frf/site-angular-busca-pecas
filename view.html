@@ -1,0 +1,25 @@
+<div content-for="title">
+  <span>Resultado da Busca</span>
+</div>
+
+<input type="text" class="form-control app-search" placeholder="Procurar.."  ng-change="change()" ng-model="buscaOnline" />
+ <tt>Quantidade encontrada: {{counter}}</tt><br/>
+<div class="scrollable" >
+  <div class="scrollable-content">
+    <div class="list-group">
+        {{status}}
+      <a ng-repeat="item in aList" href="#viewProd/{{item.IdProd}}" class="list-group-item">
+        {{ item.Nome }} - {{ item.Fabricante }}
+        <i class="fa fa-edit pull-right"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div bs-panel class="form-actions">
+      <div content-for="navbarAction" duplicate>
+        <div class="btn btn-navbar">
+            <a href="#/add-lanc"><i class="fa fa-plus" ></i> Adicionar</a>
+        </div>
+      </div>
+    </div>

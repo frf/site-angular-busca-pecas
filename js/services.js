@@ -27,4 +27,4 @@ services.service('dataService', ['$http', function ($http) {
         this.getOrders = function (id) {
             return $http.get(urlBase + '/' + id + '/orders');
         };
-    }]);
+}]);
