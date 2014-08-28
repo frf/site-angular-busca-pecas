@@ -15,9 +15,10 @@ meusControllers.controller('MainController', function($rootScope, $scope) {
     });
     
 });
-meusControllers.controller('lancamentoController',function($scope, $location, $routeParams, dataService) {
+meusControllers.controller('lancamentoController',function($scope, $location, $routeParams, $http) {
             
-            var oData = dataService.getCustomers();
+            var urlBase = 'http://pecas.guru/api/produto';
+            var oData = $http.get(urlBase);
             var data = [];
             
             $scope.counter = 0;
